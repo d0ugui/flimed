@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import Link from 'next/link';
 
 import { AuthContext } from '../../context/AuthContext';
 
 import { Input } from '../Input';
 
 import { Container } from './styles';
+import { Button } from '../Button';
 
 interface FormProps {
   email: string;
@@ -22,6 +24,7 @@ const LoginForm = () => {
 
   return (
     <Container onSubmit={handleSubmit(handleSignIn)}>
+      <h1>To-do App<span>.</span></h1>
       <label>
         Login
         <Input 
@@ -39,9 +42,12 @@ const LoginForm = () => {
           placeholder="Insira sua senha"
         />
       </label>
-      <button>
-        Entrar
-      </button>
+
+      <Link href="/reset">
+        Esqueceu a senha?
+      </Link>
+
+      <Button>Entrar</Button>
     </Container>
   )
 }

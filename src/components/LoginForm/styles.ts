@@ -9,6 +9,16 @@ export const Container = styled.form`
   align-items: center;
   justify-content: center;
 
+  h1 {
+    color: #FFF;
+    margin-bottom: 60px;
+
+    span {
+      color:#FF57B2;
+      font-size: 50px;
+    }
+  }
+
   label {
     width: 100%;
     color: #fff;
@@ -22,24 +32,15 @@ export const Container = styled.form`
     margin-top: 10px;
   }
 
-  button {
-    width: 100%;
+  a {
+    margin-left: auto;
     margin-top: 20px;
-
-    border: none;
-    border-radius: 4px;
-
-    padding: 18px 0;
-
-    cursor: pointer;
-
-    background: #FF57B2;
     color: #fff;
-
-    transition: 0.4s all ease;
+    transition: 0.4s all ease-in-out;
+    text-decoration: none;
 
     &:hover {
-      filter: brightness(0.8);
+      color:#FF57B2;
     }
   }
 `;

@@ -6,7 +6,7 @@ export function getAPIClient(ctx?: any) {
 
   const api = axios.create({
     baseURL: 'https://test-flimed-backend.herokuapp.com/'
-  })
+  });
 
   if (token) {
     api.defaults.headers['Authorization'] = `Bearer ${token}`
