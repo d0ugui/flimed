@@ -76,7 +76,7 @@ export function AuthProvider({ children }: AuthContextProps) {
 
     setUser(user);
 
-    Router.push('/dash');
+    Router.push('/notes');
   }
 
   async function resetPassword({ email } : ResetPasswordData) {
