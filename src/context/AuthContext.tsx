@@ -1,4 +1,3 @@
-import { AxiosDefaults } from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
@@ -14,6 +13,7 @@ type AuthContextType = {
   resetPassword: (data: ResetPasswordData) => Promise<SucessResetReturn>;
   newPassword: (data: NewPasswordData) => Promise<SucessResetReturn>
   signOut: () => void;
+  newTask: ({ title, content, description } :NewTaskData) => Promise<SucessResetReturn>;
 }
 
 type AuthContextProps = {
@@ -42,6 +42,12 @@ type SucessResetReturn = {
 type NewPasswordData = {
   key: string;
   password: string;
+}
+
+type NewTaskData = {
+  title: string;
+  content: string;
+  description: string;
 }
 
 import { createContext } from 'react';
@@ -73,7 +79,7 @@ export function AuthProvider({ children }: AuthContextProps) {
     })
 
     setCookie(undefined, 'nextauth-token', token, {
-      maxAge: 60 * 60 * 1, // 1 hora
+      maxAge: 60 * 10, // 10 min
     })
 
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -113,6 +119,14 @@ export function AuthProvider({ children }: AuthContextProps) {
     return { statusText, message }
   }
 
+  async function newTask({ title, content, description }: NewTaskData) {
+    const params = JSON.stringify({ title, content, description });
+
+    const { statusText, data: {message} } = await api.post('/notes/create', params);
+
+    return { statusText, message };
+  }
+
   return (
     <AuthContext.Provider value={{ 
       user, 
@@ -120,7 +134,8 @@ export function AuthProvider({ children }: AuthContextProps) {
       signIn, 
       resetPassword, 
       newPassword, 
-      signOut 
+      signOut,
+      newTask
     }}>
       {children}
     </AuthContext.Provider>

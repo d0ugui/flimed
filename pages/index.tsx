@@ -8,6 +8,7 @@ import { getAPIClient } from '../src/services/ssr';
 //* Styles
 import { Container } from '../src/styles/home';
 
+
 const Home: NextPage = () => {
   return (
     <Container>

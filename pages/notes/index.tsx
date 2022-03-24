@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { GetServerSideProps } from "next";
 
 import { parseCookies } from "nookies";
@@ -10,6 +10,7 @@ import NoteItem from '../../src/components/NoteItem';
 
 import { Container, NotesGroup, Welcome } from "./styles";
 import { AuthContext } from '../../src/context/AuthContext';
+import Modal from '../../src/components/Modal';
 
 type NoteData = {
   id: string;
@@ -23,6 +24,7 @@ type NotesData = {
 }
 
 const Notes = ({ notes }: NotesData) => {
+  const [modal, setModal] = useState(false);
   const { user } = useContext(AuthContext);
 
   return (
@@ -31,7 +33,12 @@ const Notes = ({ notes }: NotesData) => {
         <title>To.do - Notes</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Header />
+      {modal && <Modal 
+        setModal={setModal}
+      />}
+      <Header 
+        setModal={setModal}
+      />
 
       <Welcome>
         Bem vindo (a), <span>{user?.name}</span>
