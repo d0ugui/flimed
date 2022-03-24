@@ -1,5 +1,8 @@
+import { AxiosDefaults } from 'axios';
 import React, { useEffect, useState } from 'react';
-import { setCookie, parseCookies } from 'nookies';
+
+import { setCookie, parseCookies, destroyCookie } from 'nookies';
+
 import Router from 'next/router';
 
 import { api } from '../services/api';
@@ -10,6 +13,7 @@ type AuthContextType = {
   signIn: (data: SignInData) => Promise<void>;
   resetPassword: (data: ResetPasswordData) => Promise<SucessResetReturn>;
   newPassword: (data: NewPasswordData) => Promise<SucessResetReturn>
+  signOut: () => void;
 }
 
 type AuthContextProps = {
@@ -72,11 +76,18 @@ export function AuthProvider({ children }: AuthContextProps) {
       maxAge: 60 * 60 * 1, // 1 hora
     })
 
-    api.defaults.headers['Authorization'] = `Bearer ${token}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     setUser(user);
 
     Router.push('/notes');
+  }
+
+  async function signOut() {
+    setUser(null);
+    destroyCookie(undefined, 'nextauth-token');
+    api.defaults.headers.common['Authorization'] = 0;
+    Router.push('/');
   }
 
   async function resetPassword({ email } : ResetPasswordData) {
@@ -103,7 +114,14 @@ export function AuthProvider({ children }: AuthContextProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, resetPassword, newPassword }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      isAuthenticated, 
+      signIn, 
+      resetPassword, 
+      newPassword, 
+      signOut 
+    }}>
       {children}
     </AuthContext.Provider>
   )
