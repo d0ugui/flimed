@@ -8,7 +8,8 @@ type AuthContextType = {
   isAuthenticated: boolean;
   user: User | null;
   signIn: (data: SignInData) => Promise<void>;
-  resetPassword: (data: ResetPasswordProps) => Promise<SucessResetReturn>;
+  resetPassword: (data: ResetPasswordData) => Promise<SucessResetReturn>;
+  newPassword: (data: NewPasswordData) => Promise<SucessResetReturn>
 }
 
 type AuthContextProps = {
@@ -25,13 +26,18 @@ type User = {
   email: string;
 }
 
-type ResetPasswordProps = {
+type ResetPasswordData = {
   email: string;
 }
 
 type SucessResetReturn = {
   statusText: string;
   message: string;
+}
+
+type NewPasswordData = {
+  key: string;
+  password: string;
 }
 
 import { createContext } from 'react';
@@ -73,18 +79,31 @@ export function AuthProvider({ children }: AuthContextProps) {
     Router.push('/dash');
   }
 
-  async function resetPassword({ email } : ResetPasswordProps) {
+  async function resetPassword({ email } : ResetPasswordData) {
     const params = JSON.stringify({ email });
 
     const { statusText, data: { message } } = await api.post('/users/forgot/password/validate', params, {
       headers: { 'Content-Type': 'application/json'}
     });  
-    
+
+    return { statusText, message }
+  }
+
+  async function newPassword({ key, password } : NewPasswordData) {
+    const params = JSON.stringify({ password });
+
+    const { statusText, data: { message } } = await api.patch('/users/forgot/password/reset', params, {
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${key}`
+      }
+    });  
+
     return { statusText, message }
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, resetPassword }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, resetPassword, newPassword }}>
       {children}
     </AuthContext.Provider>
   )

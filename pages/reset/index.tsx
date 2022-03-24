@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Router from 'next/router';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form'
 import { Button } from '../../src/components/Button';
@@ -24,7 +25,8 @@ const Reset = () => {
       const { statusText, message } = await resetPassword(data);
 
       if (statusText) {
-        alert(message);
+        // alert(message);
+        Router.push('/reset/recovery');
       }
     } catch (error) {
       console.log('error: ', error)
@@ -36,7 +38,7 @@ const Reset = () => {
   return (
     <Container>
       <Content onSubmit={handleSubmit(handleResetPassword)}>
-        <h1>Recuperar Senha</h1>
+        <h1>Resetando senha</h1>
         <Input 
           {...register('email')}
           type="email"

@@ -23,6 +23,10 @@ export const Content = styled.form`
     color: #fff;
     margin-bottom: 60px;
   }
+
+  input + input {
+    margin-top: 20px;
+  }
 `;
 
 export const Return = styled(Button)`
