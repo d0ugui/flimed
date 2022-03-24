@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { FaCalendarAlt, FaUserAlt, FaTrashAlt, FaEdit } from 'react-icons/fa';
+import { FaCalendarAlt, FaUserAlt, FaTrashAlt, FaRegCommentAlt } from 'react-icons/fa';
 import { AuthContext } from '../../context/AuthContext';
 import dateFormat from '../../utils/dateFormat';
 
@@ -7,7 +7,7 @@ import { Container, Content, Infos, Options } from './styles';
 
 type NoteData = {
   note: {
-    id?: string;
+    id: string;
     insertedAt: Date;
     content: string;
     title: string;
@@ -15,7 +15,13 @@ type NoteData = {
 }
 
 const NoteItem = ({ note }: NoteData) => {
-  const { user } = useContext(AuthContext);
+  const { user, deleteTask } = useContext(AuthContext);
+
+  async function handleDeleteTask(id: string) {
+    const {statusText, message} = await deleteTask(id);
+    
+    alert(message);
+  }
 
   return (
     <Container>
@@ -36,8 +42,11 @@ const NoteItem = ({ note }: NoteData) => {
         </Infos>
       </Content>
       <Options>
-        <FaTrashAlt size={24} />
-        <FaEdit size={24} />
+        <FaTrashAlt 
+          size={24} 
+          onClick={() => handleDeleteTask(note?.id)}
+        />
+        <FaRegCommentAlt size={24} />
       </Options>
     </Container>
   )

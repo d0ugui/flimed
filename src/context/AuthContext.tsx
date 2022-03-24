@@ -14,6 +14,7 @@ type AuthContextType = {
   newPassword: (data: NewPasswordData) => Promise<SucessResetReturn>
   signOut: () => void;
   newTask: ({ title, content, description } :NewTaskData) => Promise<SucessResetReturn>;
+  deleteTask: (id: string) => Promise<SucessResetReturn>;
 }
 
 type AuthContextProps = {
@@ -127,6 +128,12 @@ export function AuthProvider({ children }: AuthContextProps) {
     return { statusText, message };
   }
 
+  async function deleteTask(id : string) {
+    const { statusText, data: { message }} = await api.delete(`/notes/delete/${id}`);
+
+    return { statusText, message }
+  }
+
   return (
     <AuthContext.Provider value={{ 
       user, 
@@ -135,7 +142,8 @@ export function AuthProvider({ children }: AuthContextProps) {
       resetPassword, 
       newPassword, 
       signOut,
-      newTask
+      newTask,
+      deleteTask
     }}>
       {children}
     </AuthContext.Provider>

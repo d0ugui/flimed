@@ -42,7 +42,12 @@ export const Options = styled.div`
   justify-content: flex-end;
 
   svg {
-    cursor: pointer;
+    cursor: pointer; 
+    transition: 0.4s all ease;
+
+    &:hover {
+      transform: scale(1.5);;
+    }
 
     & + svg {
       margin-left: 8px;
@@ -50,7 +55,7 @@ export const Options = styled.div`
   }
 
   svg:nth-child(1) {
-    color: #e52e4d;
+    color: #e52e4d88;
   }
 
   svg:nth-child(2) {

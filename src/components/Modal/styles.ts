@@ -46,4 +46,8 @@ export const Content = styled.form`
 export const Buttons = styled.div`
   display: flex;
   gap: 20px;
+
+  button:nth-child(1) {
+    background: #33CCad;
+  }
 `;

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useState, useContext } from 'react';
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 
 import { parseCookies } from "nookies";
 import { getAPIClient } from "../../src/services/ssr";
