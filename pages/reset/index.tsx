@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
 import React, { useContext } from 'react';
@@ -8,13 +9,13 @@ import { AuthContext } from '../../src/context/AuthContext';
 
 import { Container, Content, Return } from './styles';
 
-interface RecoveryData {
+type RecoveryData = {
   email: string;
 }
 
 const Reset = () => {
   const { resetPassword } = useContext(AuthContext);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<RecoveryData>();
 
   async function handleResetPassword(data: RecoveryData) {
     try {
@@ -37,6 +38,11 @@ const Reset = () => {
 
   return (
     <Container>
+      <Head>
+        <title>To.do - Resetando senha</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+
       <Content onSubmit={handleSubmit(handleResetPassword)}>
         <h1>Resetando senha</h1>
         <Input 

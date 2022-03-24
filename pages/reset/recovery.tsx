@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
 import { useContext } from 'react';
@@ -38,8 +39,12 @@ const Recovery = () => {
 
   return (
     <Container>
+      <Head>
+        <title>To.do - Redefinindo senha</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Content onSubmit={handleSubmit(handleNewPassword)}>
-        <h1>Recuperando senha</h1>
+        <h1>Redefinindo senha</h1>
         <Input 
           {...register('key')}
           type="string"

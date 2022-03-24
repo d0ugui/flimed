@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useContext } from 'react';
 import { GetServerSideProps } from "next";
 
@@ -26,10 +27,14 @@ const Notes = ({ notes }: NotesData) => {
 
   return (
     <Container>
+      <Head>
+        <title>To.do - Notes</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Header />
 
       <Welcome>
-        Bem vindo (a), {user?.name}
+        Bem vindo (a), <span>{user?.name}</span>
       </Welcome>
 
       <NotesGroup>

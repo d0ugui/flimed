@@ -16,7 +16,7 @@ interface FormProps {
 
 const LoginForm = () => {
   const { signIn } = useContext(AuthContext);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<FormProps>();
 
   async function handleSignIn(data : FormProps) {
     await signIn(data);

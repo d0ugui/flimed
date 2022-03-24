@@ -20,4 +20,8 @@ export const NotesGroup = styled.ul`
 export const Welcome = styled.h1`
   color: #fff;
   margin-top: 60px;
+
+  span {
+    color: #FF57B2;
+  }
 `;
