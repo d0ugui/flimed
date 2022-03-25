@@ -14,9 +14,21 @@ export const Container = styled.li`
     color: #D7D7D7;
     margin-top: 8px;
   }
+
+  a { 
+    cursor: pointer;
+  }
 `;
 
-export const Content = styled.div``;
+export const Content = styled.div`
+  cursor: pointer;
+  width: 100%;
+  transition: 0.4s all ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
 
 export const Infos = styled.div`
   display: flex;

@@ -4,7 +4,7 @@ import { Button } from "../Button"
 import { Container, Buttons } from "./styles"
 
 type HeaderProps = {
-  setModal: (state: boolean) => void;
+  setModal?: (state: boolean) => void;
 }
 
 const Header = ({ setModal }: HeaderProps ) => {

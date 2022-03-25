@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useContext } from 'react';
 import { FaCalendarAlt, FaUserAlt, FaTrashAlt, FaRegCommentAlt } from 'react-icons/fa';
 import { AuthContext } from '../../context/AuthContext';
@@ -24,31 +25,35 @@ const NoteItem = ({ note }: NoteData) => {
   }
 
   return (
-    <Container>
-      <Content>
-        <h2>{note?.title}</h2>
-        <h3>
-          {note?.content}
-        </h3>
-        <Infos>
-          <p>
-            <FaCalendarAlt />
-            {dateFormat(note?.insertedAt)}
-          </p>
-          <p>
-            <FaUserAlt/>
-            {user?.name}
-          </p>
-        </Infos>
-      </Content>
-      <Options>
-        <FaTrashAlt 
-          size={24} 
-          onClick={() => handleDeleteTask(note?.id)}
-        />
-        <FaRegCommentAlt size={24} />
-      </Options>
-    </Container>
+    
+      <Container>
+        <Link href={`/notes/${note.id}`} passHref>
+          <Content>
+            <h2>{note?.title}</h2>
+            <h3>
+              {note?.content}
+            </h3>
+            <Infos>
+              <p>
+                <FaCalendarAlt />
+                {dateFormat(note?.insertedAt)}
+              </p>
+              <p>
+                <FaUserAlt/>
+                {user?.name}
+              </p>
+            </Infos>
+          </Content>
+        </Link>
+        <Options>
+          <FaTrashAlt 
+            size={24} 
+            onClick={() => handleDeleteTask(note?.id)}
+          />
+          <FaRegCommentAlt size={24} />
+        </Options>
+      </Container>
+    
   )
 }
 
